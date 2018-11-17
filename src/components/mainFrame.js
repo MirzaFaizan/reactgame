@@ -40,13 +40,11 @@ class mainFrame extends Component {
       this.setState(
         {
           lastId:id,
-          message:'Now keep selecting the same image to score'
+          message:'Great! Now click different image to score'
         }
       );
-      
+      this.shuffleData(this.state.imgData);
     } else if(id!==this.state.lastId){
-      this.setState({message:'GAME OVER'})
-    } else {
       let tempScore = this.state.score+1;
       this.setState(
         {
@@ -54,13 +52,43 @@ class mainFrame extends Component {
           message:'Score : '
         }
       );
+      this.shuffleData(this.state.imgData);
+    } else {
+        this.setState(
+          {
+            message:'GAME OVER',
+            score:0
+          }
+        )
+      
     }
+  }
+
+  shuffleData=(array)=>{
+    
+      var currentIndex = array.length, temporaryValue, randomIndex;
+    
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+    
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+    
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+      
+      console.log(array);
+    
   }
 
   render() {
     return (
       <div>
-        <div className="text-center">
+        <div className="text-center text-white mt-2">
           <h1>Click Game!</h1>
           <h3>Don't click same image twice</h3>
         </div>
@@ -77,7 +105,7 @@ class mainFrame extends Component {
         </div>
         <div className="row mt-5 pt-5">
           <div className="col-md-12">
-            <h2 className="text-center">{this.state.message} {this.state.score>0?this.state.score:''}</h2>
+            <h2 className="text-center text-white">{this.state.message} {this.state.score>0?this.state.score:''}</h2>
           </div>
         </div>
       </div>
