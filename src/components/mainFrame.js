@@ -84,7 +84,7 @@ class mainFrame extends Component {
         }
       );
       this.shuffleData(this.state.imgData);
-    } else if(this.state.score>=this.state.imgData.length) {
+    } else if(this.state.score+1>=this.state.imgData.length) {
         this.setState({
           message:'YOU WON',
           score:0
