@@ -29,12 +29,32 @@ class mainFrame extends Component {
         },
       ],
       score:0,
-      isActive:false
+      lastId:null,
+      message:'Click any image to start playing!'
     }
   }
 
   handleClick=(id)=>{
     console.log(`picture with ${id} clicked`);
+    if(this.state.lastId===null){
+      this.setState(
+        {
+          lastId:id,
+          message:'Now keep selecting the same image to score'
+        }
+      );
+      
+    } else if(id!==this.state.lastId){
+      this.setState({message:'GAME OVER'})
+    } else {
+      let tempScore = this.state.score+1;
+      this.setState(
+        {
+          score:tempScore,
+          message:'Score : '
+        }
+      );
+    }
   }
 
   render() {
@@ -48,8 +68,8 @@ class mainFrame extends Component {
           <div className="row mt-5">
               {this.state.imgData.map((card)=>{
                 return (
-                  <div className="col-sm-3 text-center">
-                    <ImgContainer image={card.src} id={card.id} handleClick={this.handleClick}/>
+                  <div key={card.id} className="col-sm-3 text-center">
+                    <ImgContainer  image={card.src} id={card.id} handleClick={this.handleClick}/>
                   </div>
                   );
               })}
@@ -57,7 +77,7 @@ class mainFrame extends Component {
         </div>
         <div className="row mt-5 pt-5">
           <div className="col-md-12">
-            <h2 className="text-center">Press any image to start game</h2>
+            <h2 className="text-center">{this.state.message} {this.state.score>0?this.state.score:''}</h2>
           </div>
         </div>
       </div>
