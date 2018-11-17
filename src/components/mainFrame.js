@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import img1 from '../assets/1.png';
 import img2 from '../assets/2.png';
 import img3 from '../assets/3.png';
-import img4 from '../assets/5.png';
+import img4 from '../assets/4.png';
+import img5 from '../assets/5.png';
+import img6 from '../assets/6.png';
+import img7 from '../assets/7.png';
+import img8 from '../assets/8.png';
+import img9 from '../assets/9.png';
+import img10 from '../assets/10.png';
+import img11 from '../assets/11.png';
+import img12 from '../assets/12.png';
 import ImgContainer from './imageContainer';
 
 class mainFrame extends Component {
@@ -27,6 +35,38 @@ class mainFrame extends Component {
           "id":4,
           src:img4
         },
+        {
+          "id":5,
+          src:img5
+        },
+        {
+          "id":6,
+          src:img6
+        },
+        {
+          "id":7,
+          src:img7
+        },
+        {
+          "id":8,
+          src:img8
+        },
+        {
+          "id":9,
+          src:img9
+        },
+        {
+          "id":10,
+          src:img10
+        },
+        {
+          "id":11,
+          src:img11
+        },
+        {
+          "id":12,
+          src:img12
+        },
       ],
       score:0,
       lastId:null,
@@ -44,7 +84,13 @@ class mainFrame extends Component {
         }
       );
       this.shuffleData(this.state.imgData);
-    } else if(id!==this.state.lastId){
+    } else if(this.state.score>=this.state.imgData.length) {
+        this.setState({
+          message:'YOU WON',
+          score:0
+        })
+    }
+    else if(id!==this.state.lastId){
       let tempScore = this.state.score+1;
       this.setState(
         {
@@ -92,6 +138,11 @@ class mainFrame extends Component {
           <h1>Click Game!</h1>
           <h3>Don't click same image twice</h3>
         </div>
+        <div className="row">
+          <div className="col-md-12">
+            <h2 className="text-center text-white">{this.state.message} {this.state.score>0?this.state.score:''}</h2>
+          </div>
+        </div>
         <div className="container">
           <div className="row mt-5">
               {this.state.imgData.map((card)=>{
@@ -101,11 +152,6 @@ class mainFrame extends Component {
                   </div>
                   );
               })}
-          </div>
-        </div>
-        <div className="row mt-5 pt-5">
-          <div className="col-md-12">
-            <h2 className="text-center text-white">{this.state.message} {this.state.score>0?this.state.score:''}</h2>
           </div>
         </div>
       </div>
